@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  MiSpeech —— HyperOS 语音转文字（ASR）桥接库
+
+  本文件声明的是【调用 HyperOS 语音助手 ASR 接口所必须的“标识”】。
+  这些标识全部来自「超级小爱输入法」(com.xiaomi.type) 自身 AndroidManifest.xml 的实测结果：
+  输入法就是靠这些声明，才能 bind 上语音助手（com.miui.voiceassist）导出的 OSbotSpeechService。
+
+  Library 模块的 manifest 会在构建时自动合并进宿主 App，因此宿主 App 无需再手写这些条目。
+  详见 README.md 的「必须的 Manifest 标识」章节。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ① 绑定语音服务：目标服务 OSbotSpeechService 由该权限保护，调用方必须持有 -->
+    <uses-permission android:name="com.xiaomi.speech.permission.BIND_SPEECH_SERVICE" />
+
+    <!-- ② OSbot 外部代理标识：语音助手侧的 OSbot 框架（com.aios.osbot.*）用它校验调用方身份 -->
+    <uses-permission android:name="com.aios.osbot.permission.EXTERNAL_AGENT" />
+
+    <!-- ③ 查询语音助手开关/状态的权限（输入法用于判断语音输入是否可用） -->
+    <uses-permission android:name="com.miui.voiceassist.QUERY_ENABLE" />
+
+    <!--
+      ④ 包可见性（Android 11+）：不声明 queries 的话，即使写死 ComponentName，
+         系统也会因为看不到 com.miui.voiceassist 而让 bindService 直接失败。
+    -->
+    <queries>
+        <package android:name="com.miui.voiceassist" />
+    </queries>
+
+</manifest>

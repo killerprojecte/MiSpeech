@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 使用框架自带主题，示例 App 不依赖 AppCompat / Material -->
+    <style name="Theme.MiSpeechExample" parent="@android:style/Theme.DeviceDefault.DayNight" />
+</resources>

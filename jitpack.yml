@@ -1,0 +1,7 @@
+# JitPack 构建配置
+# 只构建并发布 :library，示例 App 不发布。
+jdk:
+  - openjdk21
+
+install:
+  - ./gradlew :library:publishToMavenLocal -x test --no-daemon

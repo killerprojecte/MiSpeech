@@ -1,0 +1,22 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+# 原 app 模块的模板样板（启动图标/主题/示例测试），已移出 library 模块。
+# 确认不再需要后可直接删除本目录。
+/.app-template-backup/
+
+# 项目排除路径
+/example/build/
+/example/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/

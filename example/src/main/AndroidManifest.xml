@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  MiSpeech 示例 App —— 用于在真机上验证 HyperOS 语音助手语音转文字接口。
+
+  注意：com.xiaomi.speech.permission.BIND_SPEECH_SERVICE、com.aios.osbot.permission.EXTERNAL_AGENT
+  和 <queries> 这三项“标识”由 :library 模块的 manifest 自动合并进来，这里不用重写。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      可选（仅为方便实机排查）：输入法自身并没有在 manifest 里声明 RECORD_AUDIO ——
+      录音是在语音助手进程内完成的。只有当服务端返回 105(AUDIO_PERMISSION) 时，
+      才需要把这个权限打开、并在运行时申请。
+    -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+        android:allowBackup="false"
+        android:label="MiSpeech Example"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MiSpeechExample">
+
+        <!--
+          ===== 实验：调用方身份凭证 =====
+          服务端（com.miui.voiceassist）在权限闸门之后还会做自己的“调用方校验”，
+          报错 “Caller not allowed”。下面这几条 meta-data 原样复制自「超级小爱输入法」
+          (com.xiaomi.type) 的 manifest —— 它们看着正是服务端用来辨认调用方的标识：
+          ai_app_code 是一串约 180 字符的 base64，形态像签名/加密后的凭证而不是配置项。
+
+          这里仅用于验证该假设，请勿随库分发。
+        -->
+        <meta-data
+            android:name="ai_app_code"
+            android:value="61MW/INbFIc5NqnxOZuhbu5qW9PWDmy02ymWK1fvGDHtTQTF76LiXuOttzUjDFESZRaZ/HfSXbCQXRPUflOMlckWi0tR+jIhpTheCMIisJedAOE7NNmPvEK0fPj9WTHjMwIlYOgg+JKefBMnaMxs2GN/LaSCUjpgonFm4VKH5eU" />
+        <meta-data
+            android:name="ai_sdk_code"
+            android:value="200" />
+        <meta-data
+            android:name="ai_sdk_name"
+            android:value="2.0.0-b2a69a6-260410-SNAPSHOT01" />
+        <meta-data
+            android:name="os_private_label"
+            android:value="PRIVATE_OS040" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="MiSpeech Example"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
